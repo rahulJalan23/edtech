@@ -1,5 +1,5 @@
 import React from 'react'
-import person_photo from '../../Waimakariri.png';
+import person_photo from './Waimakariri.png';
 
 const Card = () => {
 

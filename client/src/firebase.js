@@ -17,6 +17,24 @@ const auth = firebase.auth();
     // folders: firebase.collection("textbook")
 // }
 // db.settings({timestampsInSnapshots: true});
-const provider = new firebase.auth.GoogleAuthProvider();
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+const facebookProvider = new firebase.auth.FacebookAuthProvider();
+const githubProvider = new firebase.auth.GithubAuthProvider();
+const twitterProvider = new firebase.auth.TwitterAuthProvider();
+// const twitterProvider = new firebase.auth().TwitterAuthProvider.PROVIDER_ID;
 
-export { auth, provider, firebaseApp };
+// uiConfig =  {
+//     signInFlow : "popup",
+//     signInOptions : [
+//       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+//       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+//       firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+//       firebase.auth.GithubAuthProvider.PROVIDER_ID,
+//       firebase.auth.EmailAuthProvider.PROVIDER_ID
+//     ],
+//     callbacks : {
+//       signInSuccess : () => false
+//     }
+//   }
+
+export { auth, googleProvider , facebookProvider , githubProvider , twitterProvider , firebaseApp };

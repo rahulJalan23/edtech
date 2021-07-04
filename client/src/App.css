@@ -22,7 +22,6 @@ body{
   display: flex;
   height: 100vh;
   align-items: center;
-  background-image: url(./Waimakariri.png);
   -webkit-background-size: cover;
   -o-background-size: cover;
   -moz-background-size: cover;
@@ -429,7 +428,18 @@ form.sign-in-form {
 
 .social-media {
   display: flex;
+  /* justify-content: center; */
+  flex-direction: row;
+}
+
+.social-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
   justify-content: center;
+  cursor: pointer;
+  font-size: 35px;
 }
 
 .btn {

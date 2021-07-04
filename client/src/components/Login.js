@@ -1,8 +1,9 @@
 import React from 'react';
-import { auth, provider } from '../firebase';
+import { auth, googleProvider , facebookProvider , githubProvider , twitterProvider } from '../firebase';
 import { setActiveUser, setUserLogOutState, selectUserName, selectUserEmail } from '../features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { FaFacebook , FaGithub, FaGooglePlus } from "react-icons/fa";
+import { AiFillTwitterCircle } from 'react-icons/ai'
 
 const Login = () => {
 
@@ -17,14 +18,63 @@ const Login = () => {
       // }).catch((err)=>alert(err.message))
     // }  
 
-    const handleSignIn = () => {
-        auth.signInWithPopup(provider).then((result)=>{
-          dispatch(setActiveUser({
-            userName: result.user.displayName,
-            userEmail: result.user.email
-          }))
-        })
+    const handleSignIn = (key) => {
+      switch (key) {
+
+        case 1:
+          auth.signInWithPopup(facebookProvider).then((result)=>{
+            var credential = result.credential;
+
+            var user = result.user;
+            dispatch(setActiveUser({
+              userName: user.name,
+              userEmail: user.email
+            }))
+
+            var accessToken = credential.accessToken;
+
+          }).catch((error) => {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+          });        
+          break;
+
+        case 2:
+          auth.signInWithPopup(twitterProvider).then((result)=>{
+            dispatch(setActiveUser({
+              userName: result.user.displayName,
+              userEmail: result.user.email
+            }))
+          })
+          break;
+
+        case 3:
+          auth.signInWithPopup(googleProvider).then((result)=>{
+            dispatch(setActiveUser({
+              userName: result.user.displayName,
+              userEmail: result.user.email
+            }))
+          })
+          break;
+
+        case 4:
+          auth.signInWithPopup(githubProvider).then((result)=>{
+            dispatch(setActiveUser({
+              userName: result.user.displayName,
+              userEmail: result.user.email
+            }))
+          })
+          break;
+      
+        default:
+          break;
       }
+    }
 
       const container = document.getElementById("container");
 
@@ -52,16 +102,24 @@ const Login = () => {
                 <i className="fas fa-user"></i>
                 <input type="text" placeholder="Username" />
               </div>
-              <div className="input-field">
-                <i className="fas fa-user"></i>
-                <input type="text" placeholder="Username" />
-              </div>
+              
               <div className="input-field">
                 <i className="fas fa-lock"></i>
                 <input type="password" placeholder="Password" />
               </div>
               <input type="submit" value="Login" class="btn solid" onClick={handleSignIn}/>
+              
+              <p className="social-text">Or Sign In with Social Platforms</p>
+
+              <div className="social-media">
+                <a className="social-icon" onClick={() => handleSignIn(1)} ><FaFacebook /></a>
+                <a className="social-icon" onClick={() => handleSignIn(2)} ><AiFillTwitterCircle /></a>
+                <a className="social-icon" onClick={() => handleSignIn(3)} ><FaGooglePlus /></a>
+                <a className="social-icon" onClick={() => handleSignIn(4)} ><FaGithub /></a>
+              </div>
+              
             </form>
+                
             <form action="#" className="sign-up-form">
               <h2 className="title">Sign up</h2>
               <div className="input-field">
@@ -76,7 +134,17 @@ const Login = () => {
                 <i className="fas fa-lock"></i>
                 <input type="password" placeholder="Password" />
               </div>
-              <input type="submit" className="btn" value="Sign up" onClick={handleSignIn}  />
+              <input type="submit" className="btn" value="Sign up" />
+
+              <p className="social-text">Or Sign Up with Social Platforms</p>
+
+              <div className="social-media">
+                <a className="social-icon" onClick={() => handleSignIn(1)} ><FaFacebook /></a>
+                <a className="social-icon" onClick={() => handleSignIn(2)} ><AiFillTwitterCircle /></a>
+                <a className="social-icon" onClick={() => handleSignIn(3)} ><FaGooglePlus /></a>
+                <a className="social-icon" onClick={() => handleSignIn(4)} ><FaGithub /></a>
+              </div>
+              
             </form>
           </div>
         </div>
